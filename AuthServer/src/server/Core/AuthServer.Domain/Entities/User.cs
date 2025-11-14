@@ -1,5 +1,5 @@
 ﻿using AuthServer.Domain.Entities.Commons;
-using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 
 namespace AuthServer.Domain.Entities
 {
