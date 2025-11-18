@@ -1,10 +1,11 @@
 ﻿using AuthServer.Application.Features.Auths.DTOs;
+using AuthServer.Domain.Entities;
 
 namespace AuthServer.Application.Abstractions.Services
 {
     public interface ITokenService
     {
-        TokenDTO CreateTokenAsync(string userId, string password);
+        TokenDTO CreateTokenAsync(User user);
         ClientTokenDTO CreateTokenByClientAsync(string userId, string password);
     }
 }
