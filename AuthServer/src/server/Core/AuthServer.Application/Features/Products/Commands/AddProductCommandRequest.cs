@@ -1,11 +1,10 @@
 ﻿using AuthServer.Application.Abstractions.Repositories;
-using AuthServer.Application.Features.Products.DTOs;
 using AuthServer.Domain.Entities;
 using Mapster;
 using Mediator;
 using SharedLibrary.Results;
 
-namespace AuthServer.Application.Features.Products.Commands.Add;
+namespace AuthServer.Application.Features.Products.Commands;
 
 public record class AddProductCommandRequest(string UserId, string Name, decimal Price, int Stock) : IRequest<Result>;
 public sealed class AddProductCommandHandler(IWriteRepository<Product> _writeRepository) : IRequestHandler<AddProductCommandRequest, Result>

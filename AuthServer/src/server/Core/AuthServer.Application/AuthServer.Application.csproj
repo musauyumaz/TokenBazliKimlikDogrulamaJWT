@@ -21,9 +21,4 @@
     <ProjectReference Include="..\AuthServer.Domain\AuthServer.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Products\Commands\Update\" />
-    <Folder Include="Features\Products\Queries\" />
-  </ItemGroup>
-
 </Project>
