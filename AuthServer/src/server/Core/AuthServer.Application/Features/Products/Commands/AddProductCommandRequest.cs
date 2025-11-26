@@ -12,6 +12,7 @@ public sealed class AddProductCommandHandler(IWriteRepository<Product> _writeRep
     public async ValueTask<Result> Handle(AddProductCommandRequest request, CancellationToken cancellationToken)
     {
         await _writeRepository.AddAsync(request.Adapt<Product>());
+        await _writeRepository.SaveChangesAsync();
         return Result.Success();
     }
 }

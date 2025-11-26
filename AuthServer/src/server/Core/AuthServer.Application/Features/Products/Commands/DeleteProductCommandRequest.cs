@@ -11,6 +11,7 @@ public sealed class DeleteProductCommandHandler(IWriteRepository<Product> _write
     public async ValueTask<Result> Handle(DeleteProductCommandRequest request, CancellationToken cancellationToken)
     {
         var data = await _writeRepository.ExecuteDeleteAsync(x => x.Id == request.Id);
+        await _writeRepository.SaveChangesAsync();
         return Result.Success();
     }
 }
