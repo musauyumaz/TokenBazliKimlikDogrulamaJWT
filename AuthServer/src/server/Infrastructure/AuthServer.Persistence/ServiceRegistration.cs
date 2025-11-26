@@ -9,6 +9,10 @@ public static class ServiceRegistration
 {
     public static void AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<AuthServerDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("SqlConnection")));
+        services.AddDbContext<AuthServerDbContext>(options =>
+        {
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            options.UseSqlServer(configuration.GetConnectionString("SqlConnection"));
+        });
     }   
 }
