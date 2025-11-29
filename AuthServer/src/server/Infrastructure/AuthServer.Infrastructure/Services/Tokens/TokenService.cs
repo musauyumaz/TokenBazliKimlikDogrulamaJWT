@@ -5,9 +5,11 @@ using AuthServer.Infrastructure.DTOs;
 using AuthServer.Infrastructure.Services.Tokens.Configurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace AuthServer.Infrastructure.Services.Tokens
 {
@@ -15,8 +17,24 @@ namespace AuthServer.Infrastructure.Services.Tokens
     {
         public TokenDTO CreateTokenAsync(User user)
         {
-            throw new NotImplementedException();
+            var accessTokenExpiration = DateTime.UtcNow.AddMinutes(_customTokenOption.Value.AccessTokenExpiration);
+            var refreshTokenExpiration = DateTime.UtcNow.AddMinutes(_customTokenOption.Value.RefreshTokenExpiration);
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_customTokenOption.Value.SecurityKey));
+
+            SigningCredentials signingCredentials = new(securityKey, SecurityAlgorithms.HmacSha256Signature);
+            JwtSecurityToken jwtSecurityToken = new(
+                issuer: _customTokenOption.Value.Issuer,
+                expires: accessTokenExpiration,
+                notBefore: DateTime.UtcNow,
+                claims: GetClaimsByUserAsync(user, _customTokenOption.Value.Audience),
+                signingCredentials: signingCredentials
+                );
+
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.WriteToken(jwtSecurityToken);
+            return new(token, accessTokenExpiration, CreateRefreshToken(), refreshTokenExpiration);
         }
+           
 
         public ClientTokenDTO CreateTokenByClientAsync(string userId, string password)
         {
