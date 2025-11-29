@@ -36,9 +36,23 @@ namespace AuthServer.Infrastructure.Services.Tokens
         }
            
 
-        public ClientTokenDTO CreateTokenByClientAsync(string userId, string password)
+        public ClientTokenDTO CreateTokenByClientAsync(Client client)
         {
-            throw new NotImplementedException();
+            var accessTokenExpiration = DateTime.UtcNow.AddMinutes(_customTokenOption.Value.AccessTokenExpiration);
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_customTokenOption.Value.SecurityKey));
+
+            SigningCredentials signingCredentials = new(securityKey, SecurityAlgorithms.HmacSha256Signature);
+            JwtSecurityToken jwtSecurityToken = new(
+                issuer: _customTokenOption.Value.Issuer,
+                expires: accessTokenExpiration,
+                notBefore: DateTime.UtcNow,
+                claims: GetClaimsByClient(client),
+                signingCredentials: signingCredentials
+                );
+
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.WriteToken(jwtSecurityToken);
+            return new(token, accessTokenExpiration);
         }
 
         private string CreateRefreshToken()
