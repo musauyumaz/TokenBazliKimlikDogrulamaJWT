@@ -2,13 +2,14 @@
 using AuthServer.Application.Features.Auths.DTOs;
 using AuthServer.Domain.Entities;
 using AuthServer.Infrastructure.DTOs;
+using AuthServer.Infrastructure.Services.Tokens.Configurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 
-namespace AuthServer.Infrastructure.Services
+namespace AuthServer.Infrastructure.Services.Tokens
 {
     public sealed class TokenService(UserManager<User> _userManager, IOptions<CustomTokenOption> _customTokenOption) : ITokenService
     {
@@ -43,6 +44,18 @@ namespace AuthServer.Infrastructure.Services
             userClaims.AddRange(audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud,x)));
 
             return userClaims;
+        }
+
+        private IEnumerable<Claim> GetClaimsByClient(Client client)
+        {
+            var clientClaims = new List<Claim>()
+            {
+                new(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
+                new(JwtRegisteredClaimNames.Sub,client.Id)
+            };
+            clientClaims.AddRange(client.Audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud,x)));
+
+            return clientClaims;
         }
     }
 
