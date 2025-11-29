@@ -4,6 +4,8 @@ using AuthServer.Domain.Entities;
 using AuthServer.Infrastructure.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 
 namespace AuthServer.Infrastructure.Services
@@ -26,6 +28,21 @@ namespace AuthServer.Infrastructure.Services
             using RandomNumberGenerator? randomNumber = RandomNumberGenerator.Create();
             randomNumber.GetBytes(numberByte);
             return Convert.ToBase64String(numberByte);
+        }
+
+        private IEnumerable<Claim> GetClaimsByUserAsync(User user, List<string> audiences)
+        {
+            var userClaims = new List<Claim>()
+            {
+                new(ClaimTypes.NameIdentifier, user.Id),
+                new(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Email, user.Email),
+                new(ClaimTypes.Name , user.UserName),
+                new(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
+            };
+
+            userClaims.AddRange(audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud,x)));
+
+            return userClaims;
         }
     }
 
