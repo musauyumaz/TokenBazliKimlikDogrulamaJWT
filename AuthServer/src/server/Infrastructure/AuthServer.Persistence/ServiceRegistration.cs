@@ -1,4 +1,8 @@
-﻿using AuthServer.Persistence.DbContexts;
+﻿using AuthServer.Application.Abstractions.Repositories;
+using AuthServer.Domain.Entities;
+using AuthServer.Persistence.DbContexts;
+using AuthServer.Persistence.Repositories.Products;
+using AuthServer.Persistence.Repositories.UserRefreshTokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,5 +18,10 @@ public static class ServiceRegistration
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             options.UseSqlServer(configuration.GetConnectionString("SqlConnection"));
         });
+
+        services.AddScoped<IReadRepository<Product>, ProductReadRepository>();
+        services.AddScoped<IWriteRepository<Product>, ProductWriteRepository>();
+        services.AddScoped<IReadRepository<UserRefreshToken>, UserRefreshTokenRepository>();
+        services.AddScoped<IWriteRepository<UserRefreshToken>, UserRefreshTokenRepository>();
     }   
 }
