@@ -8,6 +8,7 @@ public static class ServiceRegistration
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<CustomTokenOption>(configuration.GetSection("TokenOptions"));
+        services.Configure<CustomClientOption>(configuration.GetSection("Clients"));
         return services;
     }
 }
