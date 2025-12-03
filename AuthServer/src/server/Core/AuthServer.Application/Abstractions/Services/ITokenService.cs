@@ -1,6 +1,5 @@
 ﻿using AuthServer.Application.Features.Auths.DTOs;
 using AuthServer.Domain.Entities;
-using AuthServer.Infrastructure.Services.Tokens.Configurations;
 
 namespace AuthServer.Application.Abstractions.Services
 {
