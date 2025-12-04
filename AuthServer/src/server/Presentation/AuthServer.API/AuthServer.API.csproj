@@ -4,6 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>73005593-ea2d-43a2-8833-e838a433977d</UserSecretsId>
   </PropertyGroup>
   
   <ItemGroup>
@@ -12,6 +13,16 @@
   
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\AuthServer.Application\AuthServer.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\AuthServer.Infrastructure\AuthServer.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\AuthServer.Persistence\AuthServer.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

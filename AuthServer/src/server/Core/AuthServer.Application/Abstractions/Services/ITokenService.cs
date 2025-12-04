@@ -6,6 +6,6 @@ namespace AuthServer.Application.Abstractions.Services
     public interface ITokenService
     {
         TokenDTO CreateTokenAsync(User user);
-        ClientTokenDTO CreateTokenByClientAsync(string userId, string password);
+        ClientTokenDTO CreateTokenByClientAsync(Client client);
     }
 }
