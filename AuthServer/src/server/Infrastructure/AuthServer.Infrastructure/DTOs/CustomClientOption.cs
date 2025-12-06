@@ -1,5 +1,10 @@
 ﻿namespace AuthServer.Infrastructure.DTOs
 {
-    public record CustomClientOption(string Id, string Secret, List<string> Audiences);
+    public record CustomClientOption
+    {
+        public string Id { get; set; }
+        public string Secret { get; set; }
+        public List<string> Audiences { get; set; }
+    }
 
 }
