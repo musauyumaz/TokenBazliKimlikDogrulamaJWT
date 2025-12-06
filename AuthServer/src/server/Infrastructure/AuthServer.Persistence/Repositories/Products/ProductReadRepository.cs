@@ -12,7 +12,7 @@ namespace AuthServer.Persistence.Repositories.Products
 
         public IQueryable<Product> GetAll(bool tracking = false) => Table.AsQueryable();
 
-        public async Task<Product> GetByIdAsync(string id, bool tracking = false) => await Table.FindAsync(Guid.Parse(id));
+        public async Task<Product> GetByIdAsync(string id, bool tracking = false) => await Table.FindAsync(id);
 
         public async Task<Product> GetSingleAsync(Expression<Func<Product, bool>> method, bool tracking = false) => await Table.FirstOrDefaultAsync(method);
 
