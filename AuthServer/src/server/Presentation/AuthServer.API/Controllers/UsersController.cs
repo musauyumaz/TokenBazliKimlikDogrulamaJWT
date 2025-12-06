@@ -5,6 +5,7 @@ using Mediator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Results;
+using System.Security.Claims;
 
 namespace AuthServer.API.Controllers
 {
@@ -21,9 +22,9 @@ namespace AuthServer.API.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetUserByName(GetUserByNameQueryRequest getUserByNameQueryRequest)
+        public async Task<IActionResult> GetUserByName()
         {
-            Result<UserDTO> result = await _mediator.Send(getUserByNameQueryRequest);
+            Result<UserDTO> result = await _mediator.Send(new GetUserByNameQueryRequest(User.FindFirstValue(ClaimTypes.Name)));
             return StatusCode(((int)result.StatusCode), result);
         }
     }
