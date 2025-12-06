@@ -5,7 +5,7 @@ using SharedLibrary.Results;
 
 namespace AuthServer.Application.Features.Products.Commands;
 
-public record class DeleteProductCommandRequest(string Id) : IRequest<Result>;
+public record  DeleteProductCommandRequest(string Id) : IRequest<Result>;
 public sealed class DeleteProductCommandHandler(IWriteRepository<Product> _writeRepository) : IRequestHandler<DeleteProductCommandRequest, Result>
 {
     public async ValueTask<Result> Handle(DeleteProductCommandRequest request, CancellationToken cancellationToken)
