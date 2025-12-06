@@ -2,8 +2,6 @@
 using AuthServer.Application.Features.Auths.DTOs;
 using AuthServer.Domain.Entities;
 using AuthServer.Infrastructure.DTOs;
-using AuthServer.Infrastructure.Services.Tokens.Configurations;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,7 +11,7 @@ using System.Text;
 
 namespace AuthServer.Infrastructure.Services.Tokens
 {
-    public sealed class TokenService(UserManager<User> _userManager, IOptions<CustomTokenOption> _customTokenOption) : ITokenService
+    public sealed class TokenService(IOptions<CustomTokenOption> _customTokenOption) : ITokenService
     {
         public TokenDTO CreateTokenAsync(User user)
         {
