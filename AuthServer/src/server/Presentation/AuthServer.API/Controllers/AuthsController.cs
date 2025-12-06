@@ -6,7 +6,7 @@ using SharedLibrary.Results;
 
 namespace AuthServer.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AuthsController(IMediator _mediator) : ControllerBase
     {
