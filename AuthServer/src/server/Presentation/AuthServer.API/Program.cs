@@ -22,9 +22,9 @@ builder.Services.AddAuthentication(options =>
     var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOption>();
     options.TokenValidationParameters = new()
     {
-        ValidIssuer = tokenOptions.Issuer,
-        ValidAudiences = tokenOptions.Audience,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey)),
+        ValidIssuer = tokenOptions?.Issuer,
+        ValidAudiences = tokenOptions?.Audience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions?.SecurityKey)),
 
         ValidateIssuerSigningKey = true,
         ValidateAudience = true,
