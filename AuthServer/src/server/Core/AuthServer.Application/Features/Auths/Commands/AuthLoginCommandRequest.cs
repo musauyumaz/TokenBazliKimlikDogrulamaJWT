@@ -26,7 +26,7 @@ public sealed class AuthLoginCommandHandler(UserManager<User> _userManager, ITok
 
         var token = _tokenService.CreateTokenAsync(user);
 
-        var userRefreshToken = await _userRefreshTokenReadRepository.GetWhere(x => x.UserId == user.Id).FirstOrDefaultAsync(cancellationToken);
+        var userRefreshToken = await _userRefreshTokenReadRepository.GetWhere(x => x.UserId == user.Id).AsTracking().FirstOrDefaultAsync(cancellationToken);
         if (userRefreshToken == null)
             await _userRefreshTokenWriteRepository.AddAsync(new() { UserId = user.Id, Code = token.RefreshToken, Expiration = token.RefreshTokenExpiration });
         else
