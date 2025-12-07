@@ -8,7 +8,7 @@ using System.Net;
 
 namespace AuthServer.Application.Features.Users.Commands
 {
-    public record CreateUserCommandRequest(string Email, string UserName, string Password) : IRequest<Result<UserDTO>>;
+    public record CreateUserCommandRequest(string Email, string UserName, string City, string Password) : IRequest<Result<UserDTO>>;
     public sealed class CreateUserCommandHandler(UserManager<User> _userManager) : IRequestHandler<CreateUserCommandRequest, Result<UserDTO>>
     {
         public async ValueTask<Result<UserDTO>> Handle(CreateUserCommandRequest request, CancellationToken cancellationToken)
