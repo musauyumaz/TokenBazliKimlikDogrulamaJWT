@@ -1,7 +1,7 @@
 ﻿using AuthServer.Application.Abstractions.Services;
 using AuthServer.Application.Features.Auths.DTOs;
 using AuthServer.Domain.Entities;
-using AuthServer.Infrastructure.DTOs;
+using AuthServer.SharedLibrary.DTOs;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

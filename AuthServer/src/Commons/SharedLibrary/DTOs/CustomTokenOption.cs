@@ -1,4 +1,4 @@
-﻿namespace AuthServer.Infrastructure.DTOs
+﻿namespace AuthServer.SharedLibrary.DTOs
 {
     public class CustomTokenOption
     {

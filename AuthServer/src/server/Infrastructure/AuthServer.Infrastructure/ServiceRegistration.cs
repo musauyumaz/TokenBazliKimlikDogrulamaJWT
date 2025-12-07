@@ -1,6 +1,7 @@
 ﻿using AuthServer.Application.Abstractions.Services;
 using AuthServer.Infrastructure.DTOs;
 using AuthServer.Infrastructure.Services.Tokens;
+using AuthServer.SharedLibrary.DTOs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 namespace AuthServer.Infrastructure;
